@@ -1,91 +1,97 @@
+/* Estilos generales */
 body {
     background-color: #fce4ec;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     font-family: 'Arial', sans-serif;
-    overflow: hidden; /* Evita que salgan barras de scroll */
+    overflow-x: hidden; /* Evita que se mueva de lado */
     position: relative;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
+/* Tarjeta Central */
 .tarjeta {
     background: white;
-    padding: 30px;
+    padding: 20px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     text-align: center;
     max-width: 350px;
-    z-index: 10; /* Para que esté por encima de lo demás */
+    width: 100%;
+    z-index: 10;
+    position: relative;
 }
 
 .tarjeta img {
     width: 100%;
+    height: auto;
     border-radius: 15px;
 }
 
-h1 { color: #d81b60; margin-top: 20px; font-size: 1.6rem; }
-p { color: #555; font-size: 1.1rem; line-height: 1.4; }
+h1 { color: #d81b60; font-size: 1.4rem; margin: 15px 0; }
+p { color: #555; font-size: 1rem; line-height: 1.4; }
 
-/* Estilo para las cosas que flotan */
+/* Elementos decorativos (Fotos y Palabras) */
 .decoracion {
     position: absolute;
-    animation: flotar 3s ease-in-out infinite alternate;
+    z-index: 1;
+    transition: all 0.3s ease;
 }
 
 .decoracion img {
-    width: 120px; /* Tamaño mediano para las fotos */
-    height: 120px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
-    border-radius: 10px;
-    border: 5px solid white;
+    border-radius: 50%; /* Fotos circulares se ven mejor en cel */
+    border: 4px solid white;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .palabra {
     color: #ad1457;
     font-weight: bold;
-    font-style: italic;
-    font-size: 1.2rem;
-    background: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.8);
     padding: 5px 10px;
     border-radius: 20px;
+    white-space: nowrap;
 }
 
-/* Posiciones de las fotos y palabras */
-.foto-1 { top: 10%; left: 10%; transform: rotate(-10deg); }
-.foto-2 { bottom: 10%; right: 10%; transform: rotate(10deg); }
+/* Posiciones para PC */
+.foto-1 { top: 10%; left: 10%; }
+.foto-2 { bottom: 10%; right: 10%; }
 .p1 { top: 15%; right: 15%; }
 .p2 { bottom: 20%; left: 15%; }
-.p3 { top: 50%; left: 5%; }
-.p4 { top: 50%; right: 5%; }
+.p3 { top: 50%; left: 2%; }
+.p4 { top: 50%; right: 2%; }
 
-@keyframes flotar {
-    from { transform: translateY(0px) rotate(var(--r, 0deg)); }
-    to { transform: translateY(-15px) rotate(var(--r, 5deg)); }
-}
-/* --- Añade esto al final de tu archivo estilo.css --- */
-
+/* --- AJUSTES PARA CELULAR --- */
 @media (max-width: 600px) {
     body {
-        overflow: auto; /* Permite bajar si el contenido es largo */
+        flex-direction: column;
+        padding-top: 80px; /* Espacio para fotos arriba */
     }
+    
     .tarjeta {
-        width: 85%; /* Se ajusta al ancho del celular */
-        margin: 20px;
-        padding: 20px;
+        max-width: 90%;
+        margin-top: 20px;
     }
-    .decoracion img {
-        width: 90px; /* Fotos más pequeñas para que no estorben */
-        height: 90px;
-    }
-    .palabra {
-        font-size: 0.8rem;
-        padding: 3px 8px;
-    }
-    /* Reubicamos un poco para que no se amontonen en vertical */
-    .foto-1 { top: 5%; left: 5%; }
-    .foto-2 { bottom: 5%; right: 5%; }
-}
 
+    /* Movemos las fotos para que no tapen el texto */
+    .foto-1 { top: 20px; left: 50%; transform: translateX(-110%); }
+    .foto-2 { top: 20px; left: 50%; transform: translateX(10%); }
+    
+    .decoracion img {
+        width: 70px;
+        height: 70px;
+    }
+
+    /* Ocultamos algunas palabras si hay poco espacio o las hacemos pequeñas */
+    .p3, .p4 { display: none; }
+    .p1 { top: 110px; right: 10%; }
+    .p2 { bottom: 10px; left: 50%; transform: translateX(-50%); }
+}
